@@ -13,6 +13,8 @@ RUN apt-get update && \
 COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker-config/otel_config.yaml /etc/otel/config.yaml
 
+COPY opentelemetry-opentracing-shim opentelemetry-opentracing-shim
+
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
