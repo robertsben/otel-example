@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: opentelemetry-opentracing-shim
+Version: 0.23.dev0
+Summary: OpenTracing Shim for OpenTelemetry
+Home-page: https://github.com/open-telemetry/opentelemetry-python/tree/main/shim/opentelemetry-opentracing-shim
+Author: OpenTelemetry Authors
+Author-email: cncf-opentelemetry-contributors@lists.cncf.io
+License: Apache-2.0
+Description: OpenTracing Shim for OpenTelemetry
+        ==================================
+        
+        |pypi|
+        
+        .. |pypi| image:: https://badge.fury.io/py/opentelemetry-opentracing-shim.svg
+           :target: https://pypi.org/project/opentelemetry-opentracing-shim/
+        
+        Installation
+        ------------
+        
+        ::
+        
+            pip install opentelemetry-opentracing-shim
+        
+        References
+        ----------
+        
+        * `OpenTracing Shim for OpenTelemetry <https://opentelemetry-python.readthedocs.io/en/latest/shim/opentracing_shim/opentracing_shim.html>`_
+        * `OpenTelemetry Project <https://opentelemetry.io/>`_
+        
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Typing :: Typed
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+Provides-Extra: test

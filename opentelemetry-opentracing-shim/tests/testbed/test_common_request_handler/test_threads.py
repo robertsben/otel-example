@@ -29,7 +29,7 @@ class Client:
         self.executor.submit(before_handler).result()
         self.executor.submit(after_handler).result()
 
-        return "%s::response" % message
+        return f"{message}::response"
 
     def send(self, message):
         return self.executor.submit(self.send_task, message)
@@ -115,5 +115,7 @@ class TestThreads(OpenTelemetryTestCase):
         parent_span = get_one_by_operation_name(spans, "parent")
         self.assertIsNotNone(parent_span)
 
-        self.assertIsChildOf(spans[1], parent_span)
-        self.assertIsChildOf(spans[2], parent_span)
+        spans = [s for s in spans if s != parent_span]
+        self.assertEqual(len(spans), 2)
+        for span in spans:
+            self.assertIsChildOf(span, parent_span)
