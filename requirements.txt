@@ -4,3 +4,4 @@ opentelemetry-exporter-otlp==1.5.0
 -e opentelemetry-opentracing-shim
 opentracing==2.4.0
 pika~=1.0
+jaeger-client==4.8.0

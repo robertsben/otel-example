@@ -4,6 +4,7 @@ Opentelemetry implementations
 import os
 import logging
 from contextlib import contextmanager
+from jaeger_client import Config
 from opentracing import global_tracer, set_global_tracer
 from opentelemetry.trace import set_tracer_provider, get_tracer_provider, get_tracer
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
@@ -41,7 +42,23 @@ def traced(span_name: str):
     return _decorator
 
 
+def bootsrap_jaeger(service_name: str):
+    cfg = {
+        'sampler': {
+            'type': 'const',
+            'param': 1,
+        },
+        'logging': True,
+    }
+    config = Config(cfg, service_name=service_name)
+    config.initialize_tracer()
+
+
 def bootstrap_tracer(service_name: str):
+    if os.environ.get('JAEGER_MODE'):
+        bootsrap_jaeger(service_name)
+        return
+
     LOGGER.info('Bootstrapping opentelemetry tracer')
     resource = Resource(
         attributes={

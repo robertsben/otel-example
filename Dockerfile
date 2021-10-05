@@ -1,6 +1,7 @@
 FROM python:3.9
 
 COPY --from=otel/opentelemetry-collector-contrib:0.36.0 /otelcontribcol /go/bin/otelcol
+COPY --from=jaegertracing/jaeger-agent:1.26 /go/bin/agent-linux /go/bin/jaeger-agent
 
 WORKDIR /app
 

@@ -79,3 +79,7 @@ if __name__ == '__main__':
     }
     with global_tracer().start_active_span('start'):
         publish(msg)
+
+    LOGGER.info('Sleeping to ensure any remaining traces are exported')
+    time.sleep(60)
+    LOGGER.info('Dying')
