@@ -18,8 +18,9 @@ processors:
 
 exporters:
   jaeger:
-    insecure: true
     endpoint: "${OTEL_JAEGER_COLLECTOR_HOST_PORT}"
+    tls:
+      insecure: true
   elastic:
     apm_server_url: "${OTEL_ELASTIC_SERVER_URL}"
   logging:

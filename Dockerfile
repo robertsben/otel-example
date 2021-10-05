@@ -1,6 +1,6 @@
 FROM python:3.9
 
-COPY --from=otel/opentelemetry-collector-contrib:0.26.0 /otelcontribcol /go/bin/otelcol
+COPY --from=otel/opentelemetry-collector-contrib:0.36.0 /otelcontribcol /go/bin/otelcol
 
 WORKDIR /app
 
