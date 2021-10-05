@@ -2,15 +2,6 @@ version: '3.7'
 
 services:
 
-#  app:
-#    build: .
-#    environment:
-#      OTLP_ENDPOINT: 'http://localhost:4317'
-#      OTEL_JAEGER_COLLECTOR_HOST_PORT: jaeger:14250
-#      OTEL_ELASTIC_SERVER_URL: 'http://elastic_apm:8200'
-#      OPENTRACING_MODE: 1
-#      START_COMMAND: python src/otel_emit.py
-
   publisher:
     build: .
     environment:
@@ -34,7 +25,7 @@ services:
       SUPERVISOR_JAEGER_COLLECTOR_HOST_PORT: jaeger:14250
       OTEL_ELASTIC_SERVER_URL: 'http://elastic_apm:8200'
       START_COMMAND: python src/otel_subscribe.py
-      JAEGER_MODE: 1
+#      JAEGER_MODE: 1
     volumes:
       - ./src:/app/src
     depends_on:

@@ -1,37 +1,34 @@
 # otel-example
 
-Example running opentelemetry tracing exporting to
-elastic APM and jaeger.
-
-Used to compare opentracing shim and opentelemetry sdk.
+Example comparing the linking between `follows_from` referenced traces
+between Jaeger and opentelemetry, using the opentracing shim.
 
 ## Running
 
 To run the services (run once):
 
-    $ docker-compose up -d elastic_apm jaeger
+    $ docker-compose up -d rabbitmq elastic_apm jaeger kibana
 
 to run the app:
 
-    $ docker-compose up --build app
+    $ docker-compose up --build publisher subscriber
 
 
-The app will emit some traces, including some waits and an 
-error.
+The publisher will trace a RabbitMQ message publish, inject the trace
+into the message headers, and the subscriber will read the message, extract
+the trace, and use the [`follows_from`](https://opentracing.io/specification/#references-between-spans)
+relationship to connect the two.
 
-You can see the traces in [Jaeger](http://localhost:16686/search)
-and [Elastic APM](http://localhost:5601/app/apm).
+You can see the traces in [Jaeger](http://localhost:16686/search), and for
+opentelemetry also in [Elastic APM](http://localhost:5601/app/apm).
 
-The traces will be under app name `otel_test_app`.
+The traces will be under app name `otel.publisher` and `otel.subscriber`.
 
 ## Opentelemetry vs Opentracing
 
-To run the app using [`opentracing`](https://github.com/opentracing/opentracing-python)
-and the [`opentelemetry-opentracing-shim`](https://github.com/open-telemetry/opentelemetry-python/tree/main/shim/opentelemetry-opentracing-shim)
-just run the app as above. Look for the operation/transaction `opentracing_main`.
+To run the app using Jaeger, set the environment variable `JAEGER_MODE: 1` in the 
+publisher and subscriber apps in the [docker-compose.yml](docker-compose.yml).
 
-To run the app using 
-[`opentelemetry-sdk`](https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-sdk)
-comment out (or set to 0) the environment variable `OPENTRACING_MODE`
-in [docker-compose.yml](docker-compose.yml). Run the app again, and look for
-the operation/transaction `otel_main`.
+To run without, comment out the `JAEGER_MODE` variable (or set it to 0).
+
+You can compare how the traces are linked in the Jaeger UI.

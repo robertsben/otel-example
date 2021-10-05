@@ -16,32 +16,6 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 LOGGER = logging.getLogger(__name__)
 
 
-def traced(span_name: str):
-    """
-    decorator for tracing a function, allows providing a name (span_name)
-
-    :param span_name: name for the trace span
-    :type span_name: str
-    :return:
-    :rtype: callable
-    """
-    def _decorator(func):
-        def _wrapper(*args, **kwargs):
-            @contextmanager
-            def _start_active_span():
-                if os.environ.get('OPENTRACING_MODE'):
-                    with global_tracer().start_active_span(f'opentracing_{span_name}'):
-                        yield
-                else:
-                    with get_tracer(__name__).start_as_current_span(f'otel_{span_name}'):
-                        yield
-
-            with _start_active_span():
-                return func(*args, **kwargs)
-        return _wrapper
-    return _decorator
-
-
 def bootsrap_jaeger(service_name: str):
     cfg = {
         'sampler': {
